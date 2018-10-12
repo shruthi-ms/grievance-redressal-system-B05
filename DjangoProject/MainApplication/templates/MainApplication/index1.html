@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Kaushan+Script" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="container-fluid">
+  <div class="heading">
+      <i class="fa fa-diamond header-icon-diamond" style="float: left;"></i>
+     Ajara Jewels<sub class="subscript"> You design.. We develop..</sub>
+  </div>
+  <div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'Northern Lights')" id="defaultOpen">Home</button>
+    <button class="tablinks" onclick="openCity(event, 'Paris')">About Us</button>
+    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Contact Info</button>
+    Username : <input type="text" name="username"></input><br>
+    Password : <input type="password" name="password"></input>
+  </div>
+
+  <div id="Northern Lights" class="tabcontent">
+      <div id="try">
+      <img src="./images/northernLights1.jpg" class="img-responsive img-thumbnail image" id="northernLights1" alt="Cinque Terre">
+      <div class="middle">
+          <div class="text">
+            Northern Lights<br>
+            bchyj j<br>
+            trchvbj<br>
+            hrcvhm <br>
+            httrchvf<br>
+            rchvgjhtv
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="Paris" class="tabcontent">
+    <div id="try">
+    <img src="./images/paris.jpg" class="img-responsive img-thumbnail" id="northernLights1" alt="Cinque Terre">
+        <div class="middle">
+            <div class="text">Paris</div>
+        </div>
+    </div>
+  </div>
+
+  <div id="Tokyo" class="tabcontent">
+   <div id="try">
+   <img src="./images/tokyo.jpg" class="img-responsive img-thumbnail" id="northernLights1" alt="Cinque Terre">
+        <div class="middle">
+            <div class="text">Tokyo</div>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="copyright">
+    <i class="fa fa-copyright header-icon-copyright" style=""></i>Copyright 2018 by Ajara Jewels
+  </div>
+</div>
+
+<script>
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+     
+</body>
+</html> 
