@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Category</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		body {
+		  font-family: 'Kaushan Script', cursive;
+		  background-color: #ebf9e8;
+		}
+		.heading {
+			font-size: 35px;
+		}
+		.header-icon {
+			height: 35px;
+			width: 35px;
+			float:left;			
+		}
+    li {
+      margin-left: 5px;
+    }
+		.list li{
+			font-size: 25px;
+		} 
+		.sizetext {
+			font-size: 25px;
+		}	
+		.list li a{
+			background-color: #dcf7d7;
+			border-color: #6ea065;
+			border-width: 2px;
+		}
+		.content li{
+			font-size: 25px;
+		}
+		.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+	</style>
+  <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Kaushan+Script" rel="stylesheet">
+</head>
+<body>
+<div class="heading">
+	<div class="heading-nav">
+		
+		<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <!--i class="material-icons md-48">cloud</i-->
+      <a class="navbar-brand" href="#"><!--img src="hat.png" class="header-icon"-->
+		<b>Account settings</b></a>
+    </div>
+    <!--ul class="nav navbar-nav list">
+      <li class="active"><a href="#" class="tablinks" onclick="openCity(event, 'Paris')" id="defaultOpen">Complaints</a></li>
+      <li><a href="#" class="tablinks" onclick="openCity(event, 'Polls')">Polls</a></li>
+      <li><a href="#" class="tablinks" onclick="openCity(event, 'Japan')">Register a Complaint</a></li>
+    </ul-->
+    
+  </div>
+</nav></div>
+	
+  <div id="Japan" class="tabcontent content">
+    <div>
+      <form method = "post" action ="{% url 'register' %}" >
+        <div class="login-box">
+
+          <h1>Login</h1>
+          <div class="textbox">
+            {% csrf_token %}
+              <p>{{IDinvalid}}</p>           
+            Roll No: <input type="text" placeholder="description" name="description" value=""><br>
+            Username: <input type="text" placeholder="description" name="description" value=""><br>
+            mail id:<input type="text" placeholder="email" name="email" value=""><br>
+            phone number:<input type="text" placeholder="subcat" name="subcat" value=""><br>
+            <input type="text" placeholder="incharge" name="incharge" value=""><br>
+          </div>
+          <input class="btn" type="submit" value="Register">
+
+        </div>
+      </form>
+    
+    </div>
+    
+  </div>
+	
+</div>
+
+<script>
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+document.getElementById("defaultOpen").click();
+</script>
+</body>
+</html>
