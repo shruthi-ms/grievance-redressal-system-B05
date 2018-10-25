@@ -123,25 +123,40 @@
 </nav></div>
 	
   <div id="Japan" class="tabcontent content">
-    <div>
-      <form method = "post" action ="{% url 'register' %}" >
+    <div><center>
+      <form method = "post" action ="{% url 'requestOtp' %}" >
         <div class="login-box">
-
-          <h1>Login</h1>
           <div class="textbox">
             {% csrf_token %}
-              <p>{{IDinvalid}}</p>           
-            Roll No: <input type="text" placeholder="description" name="description" value=""><br>
+              <p>{{IDinvalid}}</p>  
+              <!--roll number: <input type="text" placeholder="" name="roll" value=""><br><br-->         
+            <!--Roll No: <input type="text" placeholder="description" name="description" value=""><br>
             Username: <input type="text" placeholder="description" name="description" value=""><br>
             mail id:<input type="text" placeholder="email" name="email" value=""><br>
-            phone number:<input type="text" placeholder="subcat" name="subcat" value=""><br>
-            <input type="text" placeholder="incharge" name="incharge" value=""><br>
+            phone number:<input type="text" placeholder="subcat" name="subcat" value=""><br>-->
+            <input class="btn" type="submit" value="Request OTP">
+            
           </div>
-          <input class="btn" type="submit" value="Register">
 
         </div>
       </form>
-    
+      <form method = "post" action ="{% url 'validateOtp' %}" >
+        <div class="login-box">
+
+          <div class="textbox">
+            {% csrf_token %}
+              <p>{{IDinvalid}}</p>
+            <!--roll number: <input type="text" placeholder="" name="roll" value=""><br><br-->
+            Updated Mobile No: <input type="text" placeholder="" name="mobile" value=""><br><br>
+            <input type="text" placeholder="" name="enterOtp" value=""><br>
+          </div>
+          <input class="btn" type="submit" value="Validate">
+          {% if mess %}
+          <p>{{ mess }}</p>
+          {% endif %}
+        </div>
+      </form>
+    </center>
     </div>
     
   </div>
