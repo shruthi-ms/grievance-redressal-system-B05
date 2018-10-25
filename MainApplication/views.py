@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from . models import *
-# Create your views here.
 from django.http import HttpResponse
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
-
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import random
+
 def index(request):
 	template = loader.get_template("MainApplication/try.html")
 	x = Academics.objects.all()
@@ -18,9 +18,13 @@ def index(request):
 
 def Category(request):
 	template = loader.get_template("MainApplication/category.html")
-	X = Academics.objects.all()
+	m = LoggedInUser.objects.all()[0].userId
+	u = User.objects.get(userRollNumber=m)
+	X = u.academics_set.all()
+	Y = Academics.objects.all()
 	context = {
-		"list" : X
+		"list" : X,
+		"AllList" : Y
 	}
 	return HttpResponse(template.render(context,request))    
 
@@ -42,8 +46,11 @@ def Login(request):
 			return HttpResponse(template.render(context,request))
 
 		else:
-
-			#x.farmerlogin_set.create(farmerid=x.farmerid,login=1,time=timezone.now())
+			uid = x.userId.userRollNumber
+			LoggedInUser.objects.all().delete()
+			l = LoggedInUser()
+			l.userId = uid
+			l.save()
 			template = loader.get_template('MainApplication/index.html')
 			context = {
 					'id' : x.userName,
@@ -57,20 +64,89 @@ def Profile(request):
 
 	}
 	return HttpResponse(template.render(context,request))
+
+def requestOtp(request):
+	template = loader.get_template('MainApplication/profile.html')
+	m = LoggedInUser.objects.all()[0].userId
+	u = User.objects.get(userRollNumber=int(m))
+	u.latestotp_set.all().delete()
+	val = random.randint(1000,9999)
+	u.latestotp_set.create(otp=val)	
+	u = User.objects.get(userRollNumber=m)
+	umi = u.UserMailId
+	from_gmail_user = 'grs.sem5@gmail.com'
+	from_gmail_password = 'grssem5@123'
+	user = umi
+	print(user)
+	server = smtplib.SMTP('smtp.gmail.com', 587)
+	server.starttls()
+	server.login(from_gmail_user, from_gmail_password)
+	print("logged in")
+	msg = MIMEMultipart()
+	msg['From'] = from_gmail_user
+	msg['To'] = user
+	msg['Subject'] = "GRS Notification - OTP"
+	body = "One time otp for your settings is: " + str(val) 
+	msg.attach(MIMEText(body, 'plain'))
+	text = msg.as_string()
+	server.sendmail(from_gmail_user, user, text)
+	server.quit()
+	context = {
+
+	}
+	return HttpResponse(template.render(context,request))
+
+def validateOtp(request):
+	template = loader.get_template('MainApplication/profile.html')
+	m = LoggedInUser.objects.all()[0].userId
+	u = User.objects.get(userRollNumber=int(m))
+	l = u.latestotp_set.all()
+	number = l[0].otp
+	changedNumber = request.POST['mobile']
+	x = request.POST['enterOtp']
+	if(int(x)==number):
+		msg = 'Validated'
+		t = User.objects.get(userRollNumber=int(m))
+		t.userMobileNumber = changedNumber
+		t.save()
+		from_gmail_user = 'grs.sem5@gmail.com'
+		from_gmail_password = 'grssem5@123'
+		m = LoggedInUser.objects.all()[0].userId
+		u = User.objects.get(userRollNumber=m)
+		user = u.UserMailId
+		server = smtplib.SMTP('smtp.gmail.com', 587)
+		server.starttls()
+		server.login(from_gmail_user, from_gmail_password)
+		print("logged in")
+		msg = MIMEMultipart()
+		msg['From'] = from_gmail_user
+		msg['To'] = user
+		msg['Subject'] = "GRS Notification - profile updation"
+		body = "succesfully updated your profile" 
+		msg.attach(MIMEText(body, 'plain'))
+		text = msg.as_string()
+		server.sendmail(from_gmail_user, user, text)
+		server.quit()
+		context = {
+			'message': msg
+		}
+	else:
+		msg = 'Not Validated'
+		context = {
+			'mess': msg
+		}
+	return HttpResponse(template.render(context,request))
+
 def register(request):
+	#get the current logged in user id
+	m = LoggedInUser.objects.all()[0].userId
+	u = User.objects.get(userRollNumber=m)
 	x = request.POST['description']
-	y = request.POST['email']
-	p = Academics()
-	p.description = x
-	p.acadId = 300
-	p.userId = 400
-	p.incharge = request.POST['incharge']
-	p.subcatId = request.POST['subcat']
-	p.save()
-	from_gmail_user = 'scoutbotsem4@gmail.com'
-	from_gmail_password = 'scoutbot@123'
-	#users = ['shruthi.ms16@iiits.in','parkhi.m16@iiits.in','mounika.c16@iiits.in','sreepragna.v16@iiits.in','sowmyavasuki.j16@iiits.in']
-	user = y 
+	u.academics_set.create(description=x,acadId=300,userId=400,incharge=request.POST['incharge'],subcatId=request.POST['subcat']) 
+	u.save()
+	from_gmail_user = 'grs.sem5@gmail.com'
+	from_gmail_password = 'grssem5@123'
+	user = u.UserMailId
 	server = smtplib.SMTP('smtp.gmail.com', 587)
 	server.starttls()
 	server.login(from_gmail_user, from_gmail_password)
@@ -85,8 +161,12 @@ def register(request):
 	server.sendmail(from_gmail_user, user, text)
 	server.quit()
 	template = loader.get_template('MainApplication/category.html')
-	X = Academics.objects.all()
+	m = LoggedInUser.objects.all()[0].userId
+	u = User.objects.get(userRollNumber=m)
+	X = u.academics_set.all()
+	Y = Academics.objects.all()
 	context = {
-		"list" : X
+		"list" : X,
+		"AllList" : Y
 	}
 	return HttpResponse(template.render(context,request))
