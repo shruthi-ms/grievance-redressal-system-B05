@@ -114,7 +114,8 @@
 		<b>Academics</b></a>
     </div>
     <ul class="nav navbar-nav list">
-      <li class="active"><a href="#" class="tablinks" onclick="openCity(event, 'Paris')" id="defaultOpen">Complaints</a></li>
+      <li class="active"><a href="#" class="tablinks" onclick="openCity(event, 'Paris')" id="defaultOpen">My Complaints</a></li>
+      <li><a href="#" class="tablinks" onclick="openCity(event, 'Paris1')">All Complaints</a></li>
       <li><a href="#" class="tablinks" onclick="openCity(event, 'Polls')">Polls</a></li>
       <li><a href="#" class="tablinks" onclick="openCity(event, 'Japan')">Register a Complaint</a></li>
     </ul>
@@ -134,17 +135,27 @@
     </div>
 		
 	</div>
+  <div id="Paris1" class="tabcontent content">
+    <div>
+      {% if AllList %}
+        {% for i in AllList %}
+            <li>{{ i }}</li>
+        {% endfor %}
+    {% else %}
+        <p>No complaints !</p>
+    {% endif %}
+    
+    </div>
+    
+  </div>
   <div id="Japan" class="tabcontent content">
     <div>
       <form method = "post" action ="{% url 'register' %}" >
         <div class="login-box">
-
-          <h1>Login</h1>
           <div class="textbox">
             {% csrf_token %}
               <p>{{IDinvalid}}</p>            
             <input type="text" placeholder="description" name="description" value=""><br>
-            <input type="text" placeholder="email" name="email" value=""><br>
             <input type="text" placeholder="subcat" name="subcat" value=""><br>
             <input type="text" placeholder="incharge" name="incharge" value=""><br>
           </div>
