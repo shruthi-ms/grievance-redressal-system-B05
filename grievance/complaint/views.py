@@ -33,7 +33,7 @@ def dashboard(request,token):
 	}
 	return HttpResponse(template.render(context,request))
 def auth_api(token):
-    url = ' https://10.0.80.133:3000/oauth/getDetails'
+    url = ' http://10.0.80.133:3000/oauth/getDetails'
     Payload = {'token':token, 'secret':"2e9af1ae7fda17d3d74a125b39348b612f046a6ed5d6b65e1cd01fdeae32da15bdc54b02923b24d7acb3b5ddb995b3a0263cd99f4b021979e40abb1bb2fadff1"}
     s = requests.post(url,Payload)
     details = json.loads(s.content)
