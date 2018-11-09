@@ -6,3 +6,13 @@ from . 	models import *
 # Register your models here.
 admin.site.register(Academics)
 admin.site.register(Sports)
+admin.site.register(login)
+admin.site.register(LoggedInUser)
+admin.site.register(latestOtp)
+admin.site.register(Hostel)
+admin.site.register(User)
+admin.site.register(Events)
+admin.site.register(Others)
+admin.site.register(Questions)
+admin.site.register(Choice)
+admin.site.register(table_complaint)
