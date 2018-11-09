@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="css/style.css">
   <title>B05 Frontend</title>
 </head>
-
 <body>
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
     <div class="container">
@@ -29,7 +28,7 @@
             <a href="{% url 'category' %}" class="nav-link">Academics</a>
           </li>
           <li class="nav-item px-2">
-            <a href="{% url 'category2' %}" class="nav-link">Sports</a> 
+            <a href="{% url 'category2' %}" class="nav-link">Sports</a>
           </li>
           <li class="nav-item px-2">
             <a href="{% url 'category4' %}" class="nav-link">Hostel</a>
@@ -76,35 +75,11 @@
     </div>
   </header>
 
-  <div class="container">
-  		<center><h3>Hostel</h3></center>
-  </div>
-
-  <!-- ACTIONS -->
-  <section id="actions" class="py-4 mb-4 bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <a href="#" class="btn btn-success btn-block" data-toggle="modal" data-target="#addPostModal">
-            <i class="fas fa-plus"></i> File Complaint
-          </a>
-        </div>
-        <div class="col-md-4">
-          <a href="#" class="btn btn-warning btn-block" data-toggle="modal" data-target="#addPollModal1">
-            <i class="fas fa-plus"></i> Add Poll
-          </a>
-        </div>
-        <div class="col-md-2">
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- POSTS -->
   <section id="posts">
     <div class="container">
       <div class="row">
-        <div class="col-md-9">
+        <div class="col">
           <div class="card">
             <div class="card-header">
               <h4>Latest Posts</h4>
@@ -113,9 +88,10 @@
               <thead class="thead-dark">
                 <tr>
                   <th>#</th>
-                  <th>ComplaintId</th>
-                  <th>Incharge</th>
-                  <th>Description</th>
+                  <th>Complaint ID</th>
+                  <th>Question</th>
+               
+
                 </tr>
               </thead>
               <tbody>
@@ -123,9 +99,13 @@
                 {% for i in list %}
                 <tr>
                   <td>{{ forloop.counter }}</td>
-                  <td><p>H {{i.subcatId}} {{i.hostelId}}</p></td>
-                  <td>{{i.incharge}}</td>
-                  <td>{{i.description}}</td>                 
+                  <td><p>{{i.ComplaintId}}</p></td>
+                  <td>{{i.question}}</td>  
+                  <td>
+                    
+                    <a href="/complaint/showpoll/{{ i.questionId }}/" class="btn btn-secondary" target="blank">
+                      <i class="fas fa-angle-double-right"></i>Response 
+                    </a>               
                 </tr>
                 {% endfor %}
                 {% else %}
@@ -133,37 +113,27 @@
                 {% endif %}
               </tbody>
             </table>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card text-center bg-primary text-white mb-3">
-            <div class="card-body">
-              <h3>Polls</h3>
-              <h4 class="display-4">
-                <i class="fas fa-pencil-alt"></i> 6
-              </h4>
-              <a href="{% url 'look' %}" class="btn btn-outline-light btn-sm">View</a>
-            </div>
-          </div>
 
-          <div class="card text-center bg-success text-white mb-3">
-            <div class="card-body">
-              <h3>Incharge</h3>
-              <h4 class="display-4">
-                <i class="fas fa-folder"></i> 4
-              </h4>
-              <a href="{% url 'incharge' %}" class="btn btn-outline-light btn-sm">View</a>
-            </div>
-          </div>
-
-          <div class="card text-center bg-warning text-white mb-3">
-            <div class="card-body">
-              <h3>Complaints</h3>
-              <h4 class="display-4">
-                <i class="fas fa-users"></i> 4
-              </h4>
-              <a href="users.html" class="btn btn-outline-light btn-sm">View</a>
-            </div>
+            <!-- PAGINATION -->
+            <nav class="ml-4">
+              <ul class="pagination">
+                <li class="page-item disabled">
+                  <a href="#" class="page-link">Previous</a>
+                </li>
+                <li class="page-item active">
+                  <a href="#" class="page-link">1</a>
+                </li>
+                <li class="page-item">
+                  <a href="#" class="page-link">2</a>
+                </li>
+                <li class="page-item">
+                  <a href="#" class="page-link">3</a>
+                </li>
+                <li class="page-item">
+                  <a href="#" class="page-link">Next</a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
@@ -178,40 +148,39 @@
           <p class="lead text-center">
             Copyright &copy;
             <span id="year"></span>
-            ProjectA07
+            ProjectB05
           </p>
         </div>
       </div>
     </div>
   </footer>
 
-
-  <!-- MODALS -->
-
-  <!-- ADD POST MODAL -->
-  <div class="modal fade" id="addPostModal">
+  <div class="modal fade" id="addPollModal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title">File Complain</h5>
+        <div class="modal-header bg-warning text-white">
+          <h5 class="modal-title">Respond to Poll</h5>
           <button class="close" data-dismiss="modal">
             <span>&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <center><iframe src="{% url 'hform' %}" height="700" width="700" style="text-align: center;"></iframe></center>        
+          
         </div>
-        <br><br>
+        
+        <div class="modal-footer">
+          <button class="btn btn-warning" data-dismiss="modal">Submit</button>
+        </div>
       </div>
     </div>
   </div>
 
- <!-- ADD Polls from file a complain -->
-  <div class="modal fade" id="addPollModal">
+
+  <div class="modal fade" id="addPollModal1">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header bg-warning text-white">
-          <h5 class="modal-title">Add Poll</h5>
+          <h5 class="modal-title">View Poll Statistics</h5>
           <button class="close" data-dismiss="modal">
             <span>&times;</span>
           </button>
@@ -222,7 +191,7 @@
               <label for="name">Question</label>
               <input type="text" class="form-control">
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
               <label for="email">Option 1</label>
               <input type="text" class="form-control">
             </div>
@@ -237,35 +206,16 @@
             <div class="form-group">
               <label for="password2">Option 4</label>
               <input type="text" class="form-control">
-            </div>
+            </div>-->
+            <h3>DISPLAY GRAPH</h3>
           </form>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-warning" data-dismiss="modal">Create Poll</button>
+          <button class="btn btn-warning" data-dismiss="modal">EXIT</button>
         </div>
       </div>
     </div>
   </div>
-
-    <!-- ADD Poll after file a complain -->
-  <div class="modal fade" id="addPollModal1">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header bg-warning text-white">
-          <h5 class="modal-title">Add User</h5>
-          <button class="close" data-dismiss="modal">
-            <span>&times;</span>
-          </button>
-        </div>
-         <div class="modal-body">
-          <center><iframe src="{% url 'disppoll' %}" height="500" width="700" style="text-align: center;"></iframe></center>
-        </div>
-        
-        
-      </div>
-    </div>
-  </div>
-
 
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
@@ -278,9 +228,8 @@
   <script>
     // Get the current year for the copyright
     $('#year').text(new Date().getFullYear());
-
-    CKEDITOR.replace('editor1');
   </script>
 </body>
 
 </html>
+

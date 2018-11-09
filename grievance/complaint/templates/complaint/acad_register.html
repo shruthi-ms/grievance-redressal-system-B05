@@ -10,9 +10,10 @@
   <title>B05 Frontend</title>
 </head>
 <body>
-	<p>{{ success }}</p><br>
-	<p> {{ list }}
+  <p>{{ success }}</p>
+  <p>{{ confirm }}</p>
 	{% if not success %}
+  
 <form method="POST" action="{% url 'acad_confirm' %}" >
 	{% csrf_token %}
 
@@ -27,15 +28,11 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="title">E-mail</label>
-              <input type="text" class="form-control" name="email">
-            </div>
-            <div class="form-group">
               <label for="Description">Description</label>
               
               <textarea name="description" class="form-control"></textarea>
-            </div>
-            <input type="submit" value="Register" class="btn btn-primary" data-dismiss="modal" >
+            </div><br>
+            <center><input type="submit" value="Register" class="btn btn-primary" data-dismiss="modal" ></center>
           </form>
           {% endif %}
       </body>
